@@ -5,17 +5,27 @@ import auth0Provider from "@bcwdev/auth0Provider";
 
 export class CommentsController extends BaseController {
     constructor() {
-        super("api/values");
+        super("api/comments");
         this.router = express
             .Router()
-            .get("", this.getAll)
+            .get("/:recipeId", this.getCommentsByRecipeId)
             // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
             .use(auth0Provider.getAuthorizedUserInfo)
+            //.get("/:recipeId", this.getCommentsByRecipeId)
             .post("", this.create);
     }
     async getAll(req, res, next) {
         try {
-            return res.send(["value1", "value2"]);
+            let data = await commentsService.getAll();
+            return res.send(data);
+        } catch (error) {
+            next(error);
+        }
+    }
+    async getCommentsByRecipeId(req, res, next) {
+        try {
+            let comments = await commentsService.getCommentsByRecipeId(req.query.recipeId);
+            res.send(comments)
         } catch (error) {
             next(error);
         }
@@ -24,7 +34,10 @@ export class CommentsController extends BaseController {
         try {
             // NOTE NEVER TRUST THE CLIENT TO ADD THE CREATOR ID
             req.body.creatorId = req.user.sub;
-            res.send(req.body);
+            req.body.createdBy = req.userInfo.nickname;
+            req.body.creatorImage = req.userInfo.picture;
+            let comment = await commentsService.create(req.body)
+            res.send(comment);
         } catch (error) {
             next(error);
         }

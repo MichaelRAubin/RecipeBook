@@ -4,11 +4,11 @@ let ObjectId = Schema.Types.ObjectId;
 
 const Comment = new Schema(
     {
-        description: { type: String, required: true },
+        description: [{ type: String, required: true }],
         creatorId: { type: String },
         createdBy: { type: String },
         creatorImage: { type: String },
-        recipe: { type: ObjectId, ref: "Recipe", required: true },
+        recipeId: { type: ObjectId, ref: "Recipe", required: true },
     },
     { timestamps: true, toJSON: { virtuals: true } }
 );

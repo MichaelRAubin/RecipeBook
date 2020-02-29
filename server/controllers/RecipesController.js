@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import { recipesService } from "../services/RecipesService";
 import auth0Provider from "@bcwdev/auth0Provider";
+import { commentsService } from "../services/CommentsService";
 
 export class RecipesController extends BaseController {
     constructor() {
@@ -33,6 +34,7 @@ export class RecipesController extends BaseController {
             next(error);
         }
     }
+
     async create(req, res, next) {
         try {
             // NOTE NEVER TRUST THE CLIENT TO ADD THE CREATOR ID
