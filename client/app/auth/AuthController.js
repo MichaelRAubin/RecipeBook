@@ -63,7 +63,7 @@ function avatarTemplate(user) {
     ? /*html*/ `
     <div>
       <img class="rounded-circle" src="${user.picture}" alt="${user.name}" height="45"/>
-      <span class="ml-2">${user.name}</span>
+      <span class="mr-2">${user.name}</span>
     </div>`
     : /*html*/ `
     <div></div>

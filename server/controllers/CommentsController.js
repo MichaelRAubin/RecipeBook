@@ -24,7 +24,7 @@ export class CommentsController extends BaseController {
     }
     async getCommentsByRecipeId(req, res, next) {
         try {
-            let comments = await commentsService.getCommentsByRecipeId(req.query.recipeId);
+            let comments = await commentsService.getCommentsByRecipeId(req.params.Id);
             res.send(comments)
         } catch (error) {
             next(error);
