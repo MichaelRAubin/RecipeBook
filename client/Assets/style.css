@@ -18,7 +18,7 @@ html, body {
 
 .heading-text {
     font-family: Tahoma;
-    font-size: larger;
+    font-size: x-large;
 }
 
 .icon-sizing {
@@ -29,11 +29,19 @@ html, body {
 
 .overflow {
     width: 200px;
-    height: 760px;
+    height: 850px;
     overflow: auto;
 }
 
 span.icon:before {
     font-family: FontAwesome;
     content: "\f015";
+}
+
+.recipes-list {
+    background-color: #b7610b;
+}
+
+.favs-list {
+    background-color: #808000;
 }

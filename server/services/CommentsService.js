@@ -6,6 +6,7 @@ class CommentsService {
         let comment = await dbContext.Comment.find(query);
         return comment;
     }
+    //TODO not currently working - need to fix
     async getCommentsByRecipeId(recipeId) {
         if (!recipeId) {
             throw new BadRequest("Invalid Recipe Id");

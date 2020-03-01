@@ -22,6 +22,7 @@ export class CommentsController extends BaseController {
             next(error);
         }
     }
+    //TODO not currently working - need to fix
     async getCommentsByRecipeId(req, res, next) {
         try {
             let comments = await commentsService.getCommentsByRecipeId(req.params.Id);
