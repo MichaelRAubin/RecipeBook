@@ -11,8 +11,8 @@ class RecipesService {
         store.commit("recipes", recipes);
     }
 
-    async activeRecipe(_id) {
-        let selectRecipe = await store.State.recipes.find(r => r._id == _id)
+    async activeRecipe(id) {
+        let selectRecipe = await store.State.recipes.find(r => r._id == id)
         store.State.activeRecipe = selectRecipe;
     }
 
@@ -23,11 +23,12 @@ class RecipesService {
         store.commit("recipes", store.State.recipes);
     }
 
-    async editRecipe(recipeData) {
-        let recipe = await resource.put("api/recipes", recipeData);
+    async editRecipe(recipeData) { //TODO getting not defined here
+        debugger
+        let recipe = await resource.put("api/recipes" + recipeData._id);
         recipe = new Recipe(recipeData);
-        let i = store.State.cars.findIndex(r => r._id == recipe._id)
-        if (i != 1) {
+        let i = store.State.recipes.findIndex(r => r._id == recipe._id)
+        if (i != -1) {
             store.State.recipes.splice(i, 1, recipe)
             store.commit("recipes", store.State.recipes);
         }

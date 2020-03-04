@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
+import Recipe from "../models/Recipe";
 
 class RecipesService {
     async getAll(query = {}) {
@@ -16,18 +17,19 @@ class RecipesService {
     async create(recipeData) {
         return await dbContext.Recipe.create(recipeData)
     }
-    async editRecipe(id, updateData) {
-        let recipe = await dbContext.Recipe.findById(id, updateData)
+    async editRecipe(_id, updateData) {
+        let recipe = await this.getById(_id)
         // @ts-ignore
-        if (recipe.closed || !creatorId) {
-            throw new BadRequest("Recipe deleted and cannot be edited")
-        }
-        return await dbContext.Recipe.findByIdAndUpdate(id, updateData, {
+        //if (!id || recipe.closed || !creatorId) {
+        //   throw new BadRequest("Recipe can not be updated")
+        // }
+        return await dbContext.Recipe.findByIdAndUpdate(_id, updateData, {
             new: true
         });
     }
-    async deleteRecipe(id) {
-        return await dbContext.Recipe.findByIdAndUpdate(id, {
+    async deleteRecipe(_id) {
+        // @ts-ignore
+        return await dbContext.Recipe.findByIdAndUpdate(_id, {
             closed: true, new: true,
         });
     }

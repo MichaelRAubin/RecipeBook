@@ -12,10 +12,10 @@ export class RecipesController extends BaseController {
             .get("", this.getAll)
             // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
             .use(auth0Provider.getAuthorizedUserInfo)
-            .get("/:id", this.getById)
+            .get("/:_id", this.getById)
             .post("", this.create)
-            .put("/:id", this.editRecipe)
-            .delete("/:id", this.deleteRecipe);
+            .put("/:_id", this.editRecipe)
+            .delete("/:_id", this.deleteRecipe);
     }
     async getAll(req, res, next) {
         try {
@@ -28,7 +28,7 @@ export class RecipesController extends BaseController {
 
     async getById(req, res, next) {
         try {
-            let data = await recipesService.getById(req.params.id);
+            let data = await recipesService.getById(req.params._id);
             return res.send(data);
         } catch (error) {
             next(error);
@@ -51,7 +51,7 @@ export class RecipesController extends BaseController {
     async editRecipe(req, res, next) {
         try {
             req.body.creatorId = req.user.sub;
-            let editedRecipe = await recipesService.editRecipe(req.params.id, req.body);
+            let editedRecipe = await recipesService.editRecipe(req.params._id, req.body);
             res.send(editedRecipe)
 
         } catch (error) {
@@ -62,8 +62,8 @@ export class RecipesController extends BaseController {
     async deleteRecipe(req, res, next) {
         try {
             req.body.creatorId = req.user.sub;
-            let deleteRecipe = await recipesService.deleteRecipe(req.params.id);
-            res.send(deleteRecipe)
+            await recipesService.deleteRecipe(req.params._id);
+            res.send("deleted")
         } catch (error) {
             next(error)
         }

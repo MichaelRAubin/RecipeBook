@@ -39,34 +39,54 @@ export default class Recipe {
     <div class="card text-dark recipecard-font">
             <img src="assets/images/index card.jpg" class="card-img" alt="...">
             <div class="card-img-overlay">
-              <h5 class="card-title mt-n3">${this.name}</h5>
-              <img src="${this.imgUrl}" class="img-fluid img-sizing">
-              <p class="card-text m-3">Description: ${this.description}</p>
-              <p class="card-text m-3">Ingredients: ${this.ingredients}</p>
-              <p class="card-text m-3">Directions: ${this.directions}</p>
-              <p class="card-text m-3">Submitted By: <img src="${this.creatorImage}" class="img-fluid icon-sizing">  - ${this.createdBy}</p>
-            </div>
-            <div>
-                 <button class="btn btn-info btn-success img-pointer ml-2 mb-2" onclick="app.recipesController.addToFavortites('${this._id}')"> 
-                 Add to FAVS</button>
-                 <button class="btn btn-info btn-warning img-pointer ml-2 mb-2" onclick="app.recipesController.editRecipe('${this._id}')"> 
-                 Update Recipe</button>
-                 <button class="btn btn-info btn-danger img-pointer ml-2 mb-2" onclick="app.recipesController.deleteRecipe('${this._id}')"> 
-                 Delete Recipe</button>
-            </div>
+                <h5 class="card-title mt-n3">${this.name}</h5>
+                <p class="card-text m-3">Description: ${this.description}</p>
+                <p class="card-text m-3">Ingredients: ${this.ingredients}</p>
+                <p class="card-text m-3">Directions: ${this.directions}</p>
+                <p class="card-text m-3">Submitted By: <img src="${this.creatorImage}" class="img-fluid icon-sizing">  - ${this.createdBy}</p>
+                <div>
+                <img src="assets/images/black-heart.png" class="icon-sizing img-fluid img-pointer" alt="..." onclick="app.recipesController.addToFavortites('${this._id}')"> 
+                <button class="btn btn-info btn-warning img-pointer ml-2 mb-2" onclick="app.recipesController.editRecipe('${this._id}')"> 
+                Update Recipe</button>
+                <button class="btn btn-info btn-danger img-pointer ml-2 mb-2" onclick="app.recipesController.deleteRecipe('${this._id}')"> 
+                Delete Recipe</button>
+                <button class="btn btn-info btn-primary img-pointer ml-2 mb-2" onclick="app.commentsController.addComment('${this._id}')"> 
+                Add Comment</button>
+                <h3><i class="far fa-thumbs-up icon-sizing"></i></h3>
+                <h3><i class="far fa-trash-alt"></i></h3>
+                <h3><i class="fas fa-edit"></i></h3>
+                </div>
+             </div>
       </div>
             <div>
-              <form id="update-form">
-              <label for="test">Recipe Update Form:</label>
-              <input name="test" type="text" class="form-control" />
+            <h3 class="mt-3">Update Recipe Form</h3>
+              <form id="update-form" onsubmit="app.recipesController.updateRecipe()">
+                  <input name="_id" type="text" class="d-none" disabled />
+                  <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input name="name" type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input name="description" type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="ingredients">Ingredients:</label>
+                    <input name="ingrediants" type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="directions">Directions:</label>
+                    <input name="directions" type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="imgUrl">Image URL:</label>
+                    <input name="imgUrl" type="text" class="form-control" />
+                  </div>
+                   <button class="btn btn-secondary" type="submit">Update</button>
+                  <div> 
               </form>
             </div>
     `;
   }
 
-  get editRecipeTemplate() {
-    return /* html */`
-
-    `;
-  }
 }

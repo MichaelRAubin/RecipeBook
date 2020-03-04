@@ -56,15 +56,18 @@ export default class RecipesController {
         }
     }
 
-    async editRecipe(id) {
-        let recipe = store.State.recipes.find(r => r._id == id);
+    async editRecipe(_id) {
+
+        let recipe = store.State.recipes.find(r => r._id == _id);
         let form = document.getElementById("update-form");
         // @ts-ignore
         form.name.value = recipe.name;
         // @ts-ignore
         form.description.value = recipe.description;
         // @ts-ignore
-        form.ingredients.value = recipe.ingredients;
+        //form.ingredients.value = recipe.ingredients;
+        // @ts-ignore
+        form.directions.value = recipe.directions;
         // @ts-ignore
         form.imgUrl.value = recipe.imgUrl;
         // @ts-ignore
@@ -73,8 +76,7 @@ export default class RecipesController {
 
     async updateRecipe() {
         try {
-            await this.editRecipe();
-            await recipesService.editRecipe();
+            await recipesService.editRecipe()
         } catch (error) {
             console.log(error)
         }

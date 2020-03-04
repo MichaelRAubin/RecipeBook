@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 
-const recipe = new Schema(
+const Recipe = new Schema(
     {
         name: { type: String, required: true },
         description: { type: String, required: true },
@@ -13,9 +13,10 @@ const recipe = new Schema(
         creatorImage: { type: String },
         closed: { type: Boolean, default: false },
         like: { type: Number, default: 0 },
-        imgUrl: { type: String }
+        imgUrl: { type: String },
+        id: { type: String }
     },
     { timestamps: true, toJSON: { virtuals: true } }
 );
 
-export default recipe;
+export default Recipe;
