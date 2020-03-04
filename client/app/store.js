@@ -1,3 +1,5 @@
+import Recipe from "./Models/Recipe.js";
+
 /** The active state of data for the application at any given point of time
  * @type {{[x:string]: any}}
  */

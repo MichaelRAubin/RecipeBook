@@ -13,7 +13,7 @@ class RecipesService {
 
     async activeRecipe(_id) {
         let selectRecipe = await store.State.recipes.find(r => r._id == _id)
-        store.State.activeSong = selectRecipe;
+        store.State.activeRecipe = selectRecipe;
     }
 
     async create(recipeData) {
@@ -21,6 +21,16 @@ class RecipesService {
         recipe = new Recipe(recipeData);
         store.State.recipes.push(recipe);
         store.commit("recipes", store.State.recipes);
+    }
+
+    async editRecipe(recipeData) {
+        let recipe = await resource.put("api/recipes", recipeData);
+        recipe = new Recipe(recipeData);
+        let i = store.State.cars.findIndex(r => r._id == recipe._id)
+        if (i != 1) {
+            store.State.recipes.splice(i, 1, recipe)
+            store.commit("recipes", store.State.recipes);
+        }
     }
 
 }

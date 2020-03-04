@@ -10,12 +10,12 @@ function _draw() {
 }
 
 function _drawActiveRecipe() {
-    if (!store.State.activeRecipe.id) {
+    if (!store.State.activeRecipe._id) {
         document.getElementById("activeRecipe").innerHTML = "";
         return;
     }
     document.getElementById("activeRecipe").innerHTML =
-        store.State.activeSong.activeSongTemplate;
+        store.State.activeRecipe.activeRecipeTemplate;
 }
 //Public
 export default class RecipesController {
@@ -37,13 +37,13 @@ export default class RecipesController {
         let form = event.target;
         try {
             // @ts-ignore
-            recipesService.create({
+            await recipesService.create({
                 // @ts-ignore
                 name: form.name.value,
                 // @ts-ignore
                 description: form.description.value,
                 // @ts-ignore
-                //ingredients: form.ingredients.value.split(","),
+                //ingredients: form.ingredients.value.split(","),  //TODO need to fix - breaks form submission
                 // @ts-ignore
                 directions: form.directions.value,
                 // @ts-ignore
@@ -51,6 +51,30 @@ export default class RecipesController {
             });
             // @ts-ignore
             form.reset();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async editRecipe(id) {
+        let recipe = store.State.recipes.find(r => r._id == id);
+        let form = document.getElementById("update-form");
+        // @ts-ignore
+        form.name.value = recipe.name;
+        // @ts-ignore
+        form.description.value = recipe.description;
+        // @ts-ignore
+        form.ingredients.value = recipe.ingredients;
+        // @ts-ignore
+        form.imgUrl.value = recipe.imgUrl;
+        // @ts-ignore
+        form._id.value = recipe._id;
+    }
+
+    async updateRecipe() {
+        try {
+            await this.editRecipe();
+            await recipesService.editRecipe();
         } catch (error) {
             console.log(error)
         }

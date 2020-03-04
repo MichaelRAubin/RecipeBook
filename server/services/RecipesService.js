@@ -19,7 +19,7 @@ class RecipesService {
     async editRecipe(id, updateData) {
         let recipe = await dbContext.Recipe.findById(id, updateData)
         // @ts-ignore
-        if (recipe.closed) {
+        if (recipe.closed || !creatorId) {
             throw new BadRequest("Recipe deleted and cannot be edited")
         }
         return await dbContext.Recipe.findByIdAndUpdate(id, updateData, {

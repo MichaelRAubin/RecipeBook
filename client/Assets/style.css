@@ -8,8 +8,8 @@ html, body {
 }
 
 .img-sizing {
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 150px;
 }
 
 .bg-black {
@@ -22,8 +22,8 @@ html, body {
 }
 
 .icon-sizing {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     object-fit: cover;
 }
 
@@ -44,4 +44,8 @@ span.icon:before {
 
 .favs-list {
     background-color: #808000;
+}
+
+.recipecard-font {
+    font-family: cursive;
 }

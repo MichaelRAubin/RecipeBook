@@ -36,17 +36,37 @@ export default class Recipe {
   //TODO instead of a button make it an icon that changes color
   get activeRecipeTemplate() {
     return /* html */ `
-    <div class="card shadow mt-2 m-auto" style="max-width: 400px;">
-      <img src="${this.creatorImage}" class="card-img-top img-fluid">
-      <div class="card-body">
-        <h5 class="card-title"><span>${this.name} - </span>${this.description}</h5>
-        <p>Ingredients: ${this.ingredients}</p>  
-        <p class="card-text ml-n3">
-         <p>Directions: ${this.directions}   
-      <button class="btn btn-info img-pointer" onclick="app.recipesController.addToFavortites('${this._id}')"> 
-      Add to FAVS</button>
-        </div>
-    </div>
+    <div class="card text-dark recipecard-font">
+            <img src="assets/images/index card.jpg" class="card-img" alt="...">
+            <div class="card-img-overlay">
+              <h5 class="card-title mt-n3">${this.name}</h5>
+              <img src="${this.imgUrl}" class="img-fluid img-sizing">
+              <p class="card-text m-3">Description: ${this.description}</p>
+              <p class="card-text m-3">Ingredients: ${this.ingredients}</p>
+              <p class="card-text m-3">Directions: ${this.directions}</p>
+              <p class="card-text m-3">Submitted By: <img src="${this.creatorImage}" class="img-fluid icon-sizing">  - ${this.createdBy}</p>
+            </div>
+            <div>
+                 <button class="btn btn-info btn-success img-pointer ml-2 mb-2" onclick="app.recipesController.addToFavortites('${this._id}')"> 
+                 Add to FAVS</button>
+                 <button class="btn btn-info btn-warning img-pointer ml-2 mb-2" onclick="app.recipesController.editRecipe('${this._id}')"> 
+                 Update Recipe</button>
+                 <button class="btn btn-info btn-danger img-pointer ml-2 mb-2" onclick="app.recipesController.deleteRecipe('${this._id}')"> 
+                 Delete Recipe</button>
+            </div>
+      </div>
+            <div>
+              <form id="update-form">
+              <label for="test">Recipe Update Form:</label>
+              <input name="test" type="text" class="form-control" />
+              </form>
+            </div>
+    `;
+  }
+
+  get editRecipeTemplate() {
+    return /* html */`
+
     `;
   }
 }
