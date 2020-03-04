@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
 
 const Favorite = new Schema(
     {
-        title: { type: String, required: true },
-        description: { type: String, required: true }
+        favorite: { type: Boolean, default: false },
+        id: { type: ObjectId, ref: "Recipe", required: true },
+        sub: { type: ObjectId, ref: "Profile", required: true }
     },
     { timestamps: true, toJSON: { virtuals: true } }
 );

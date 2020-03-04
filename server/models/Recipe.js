@@ -12,7 +12,8 @@ const recipe = new Schema(
         creatorId: { type: String },
         creatorImage: { type: String },
         closed: { type: Boolean, default: false },
-        like: { type: Number, default: 0 }
+        like: { type: Number, default: 0 },
+        imgUrl: { type: String }
     },
     { timestamps: true, toJSON: { virtuals: true } }
 );

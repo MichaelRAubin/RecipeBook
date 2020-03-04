@@ -34,10 +34,10 @@
       <button class="btn btn-success mt-2 mb-2 ml-2" type="submit">Show All</button>
     </div>
     <div class="row h-75">
-      <div class="col 12 order-3 order-lg-1 col-lg-3 recipes-list overflow">
+      <div class="col 12 order-3 order-lg-1 col-lg-6 recipes-list overflow">
         <h3 class="mt-3 heading-text text-left">Recipes</h3>
-        <div id="recipes" class="col-12 m-0">
-          <!-- template to generate all recipes-->
+        <div id="recipe-listings" class="col-12 m-0">
+          <!-- template to generate all recipes, my recipes, and favorites-->
         </div>
       </div>
       <div class="col-12 order-2 order-lg-2 col-lg-6 w-50" style="width: 200px" ;>
@@ -53,45 +53,58 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form id="form" onsubmit="app.recipesController.createRecipe()">
+                <form id="form" onsubmit="app.recipesController.create()">
                   <input name="_id" type="text" class="d-none" disabled />
                   <div class="form-group">
-                    <label for="Name">Name:</label>
-                    <input name="Name" type="text" class="form-control" />
+                    <label for="name">Name:</label>
+                    <input name="name" type="text" class="form-control" />
                   </div>
                   <div class="form-group">
-                    <label for="Description">Description:</label>
-                    <input name="Description" type="text" class="form-control" />
+                    <label for="description">Description:</label>
+                    <input name="description" type="text" class="form-control" />
                   </div>
                   <div class="form-group">
-                    <label for="Ingredients">Ingredients:</label>
-                    <input name="Ingrediants" type="text" class="form-control" />
+                    <label for="ingredients">Ingredients:</label>
+                    <input name="ingrediants" type="text" class="form-control" />
                   </div>
                   <div class="form-group">
-                    <label for="Directions">Directions:</label>
-                    <input name="Directions" type="text" class="form-control" />
+                    <label for="directions">Directions:</label>
+                    <input name="directions" type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="imgUrl">Image URL:</label>
+                    <input name="imgUrl" type="text" class="form-control" />
+                  </div>
+                  <div class="model-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
                 </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
               </div>
             </div>
           </div>
         </div>
-        <h3 class="mt-3 heading-text text-left">Recipe Card</h3>
+        <h3 class="mt-2 heading-text text-left">Recipe Card</h3>
         <div id="activeRecipe" class="col-12 mx-auto">
-          <img class="mt-5 d-flex mx-auto" src="assets/images/background-photo.jpg" alt="" width="700" height="500">
+          <!--<img class="mt-5 d-flex mx-auto" src="assets/images/background-photo.jpg" alt="" width="700" height="500">
           <!-- template  for active recipe -->
+          <div class="card text-dark">
+            <img src="assets/images/index card.jpg" class="card-img" alt="...">
+            <div class="card-img-overlay">
+              <h5 class="card-title mt-n2">Recipe Title</h5>
+              <p class="card-text m-1">This is a wider card with supporting text below as a natural lead-in to
+                additional content. This content is a little bit longer.</p>
+              <p class="card-text">Last updated 3 mins ago</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-12 order-1 order-lg-3 col-lg-3 favs-list overflow">
+      <!-- <div class="col-12 order-1 order-lg-3 col-lg-3 favs-list overflow">
         <h3 class="mt-3 heading-text text-left">My FAVS</h3>
         <div class="col-12 m-0" id="playlist">
           <!-- template for favorites -->
-        </div>
-      </div>
+    </div> -->
+    </div>
   </main>
   <footer></footer>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

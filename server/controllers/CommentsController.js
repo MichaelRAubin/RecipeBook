@@ -8,10 +8,9 @@ export class CommentsController extends BaseController {
         super("api/comments");
         this.router = express
             .Router()
-            .get("/:recipeId", this.getCommentsByRecipeId)
+            .get("", this.getCommentsByRecipeId)
             // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
             .use(auth0Provider.getAuthorizedUserInfo)
-            //.get("/:recipeId", this.getCommentsByRecipeId)
             .post("", this.create);
     }
     async getAll(req, res, next) {
@@ -25,8 +24,10 @@ export class CommentsController extends BaseController {
     //TODO not currently working - need to fix
     async getCommentsByRecipeId(req, res, next) {
         try {
-            let comments = await commentsService.getCommentsByRecipeId(req.params.Id);
-            res.send(comments)
+            let comments = await commentsService.getCommentsByRecipeId(
+                req.query.recipeId
+            );
+            res.send(comments);
         } catch (error) {
             next(error);
         }

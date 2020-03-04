@@ -11,7 +11,7 @@ class CommentsService {
         if (!recipeId) {
             throw new BadRequest("Invalid Recipe Id");
         }
-        return await dbContext.Comment.findById({ recipeId });
+        return await dbContext.Comment.find({ recipeId });
     }
 
     async create(commentData) {

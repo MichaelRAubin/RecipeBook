@@ -1,6 +1,6 @@
 import { Auth0Provider } from "./auth/Auth0Provider.js";
 
-Auth0Provider.onAuth(async () => {
+Auth0Provider.onAuth(() => {
   resource.defaultHeaders.authorization = Auth0Provider.bearer;
 });
 
