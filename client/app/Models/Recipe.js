@@ -72,7 +72,7 @@ export default class Recipe {
                   </div>
                   <div class="form-group">
                     <label for="ingredients">Ingredients:</label>
-                    <input name="ingrediants" type="text" class="form-control" />
+                    <input name="ingredients" type="text" class="form-control" />
                   </div>
                   <div class="form-group">
                     <label for="directions">Directions:</label>

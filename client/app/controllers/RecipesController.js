@@ -20,7 +20,7 @@ function _drawActiveRecipe() {
 //Public
 export default class RecipesController {
     constructor() {
-        Auth0Provider.onAuth(this.getRecipes)
+        this.getRecipes();
         store.subscribe("recipes", _draw);
     }
 
@@ -35,48 +35,54 @@ export default class RecipesController {
     async create() {
         event.preventDefault();
         let form = event.target;
+        let recipeData = this.getFormData(form)
         try {
             // @ts-ignore
-            await recipesService.create({
-                // @ts-ignore
-                name: form.name.value,
-                // @ts-ignore
-                description: form.description.value,
-                // @ts-ignore
-                //ingredients: form.ingredients.value.split(","),  //TODO need to fix - breaks form submission
-                // @ts-ignore
-                directions: form.directions.value,
-                // @ts-ignore
-                imgUrl: form.imgUrl.value
-            });
+            await recipesService.create();
             // @ts-ignore
             form.reset();
         } catch (error) {
             console.log(error)
         }
     }
+    getFormData(form) {
+        return {
+            // @ts-ignore
+            name: form.name.value,
+            // @ts-ignore
+            description: form.description.value,
+            // @ts-ignore
+            ingredients: form.ingredients.value.split(","),  //TODO need to fix - breaks form submission
+            // @ts-ignore
+            directions: form.directions.value,
+            // @ts-ignore
+            imgUrl: form.imgUrl.value
+        };
+    }
 
     async editRecipe(_id) {
 
         let recipe = store.State.recipes.find(r => r._id == _id);
         let form = document.getElementById("update-form");
-        // @ts-ignore
+        this.setFormFields(form, recipe)
+    }
+    setFormFields(form, recipe) {
         form.name.value = recipe.name;
-        // @ts-ignore
         form.description.value = recipe.description;
-        // @ts-ignore
-        //form.ingredients.value = recipe.ingredients;
-        // @ts-ignore
+        form.ingredients.value = recipe.ingredients.join(", ");
         form.directions.value = recipe.directions;
-        // @ts-ignore
         form.imgUrl.value = recipe.imgUrl;
-        // @ts-ignore
         form._id.value = recipe._id;
     }
 
     async updateRecipe() {
         try {
-            await recipesService.editRecipe()
+            event.preventDefault()
+            let form = document.getElementById("update-form");
+            let recipeData = this.getFormData(form)
+            // @ts-ignore
+            recipeData._id = form._id.value;
+            await recipesService.editRecipe(recipeData)
         } catch (error) {
             console.log(error)
         }

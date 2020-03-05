@@ -18,15 +18,14 @@ class RecipesService {
 
     async create(recipeData) {
         let recipe = await resource.post("api/recipes", recipeData);
-        recipe = new Recipe(recipeData);
+        recipe = new Recipe(recipe);
         store.State.recipes.push(recipe);
         store.commit("recipes", store.State.recipes);
     }
 
     async editRecipe(recipeData) { //TODO getting not defined here
-        debugger
-        let recipe = await resource.put("api/recipes" + recipeData._id);
-        recipe = new Recipe(recipeData);
+        let recipe = await resource.put("api/recipes/" + recipeData._id, recipeData);
+        recipe = new Recipe(recipe);
         let i = store.State.recipes.findIndex(r => r._id == recipe._id)
         if (i != -1) {
             store.State.recipes.splice(i, 1, recipe)

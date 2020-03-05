@@ -17,15 +17,13 @@ class RecipesService {
     async create(recipeData) {
         return await dbContext.Recipe.create(recipeData)
     }
-    async editRecipe(_id, updateData) {
-        let recipe = await this.getById(_id)
-        // @ts-ignore
-        //if (!id || recipe.closed || !creatorId) {
-        //   throw new BadRequest("Recipe can not be updated")
-        // }
-        return await dbContext.Recipe.findByIdAndUpdate(_id, updateData, {
+    async editRecipe(_id, editedRecipe) {
+        let recipe = await dbContext.Recipe.findById(_id)
+
+        return await dbContext.Recipe.findByIdAndUpdate(_id, editedRecipe, {
             new: true
-        });
+        }
+        );
     }
     async deleteRecipe(_id) {
         // @ts-ignore

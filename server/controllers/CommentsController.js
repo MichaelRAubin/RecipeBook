@@ -13,6 +13,7 @@ export class CommentsController extends BaseController {
             .use(auth0Provider.getAuthorizedUserInfo)
             .post("", this.create);
     }
+    //TODO - can remove this code
     async getAll(req, res, next) {
         try {
             let data = await commentsService.getAll();
