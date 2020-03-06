@@ -32,6 +32,15 @@ export default class RecipesController {
         }
     }
 
+    async getRecipesByCreatorId() {
+        try {
+            await recipesService.getRecipesByCreatorId()
+            _draw()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async create() {
         event.preventDefault();
         let form = event.target;
@@ -60,6 +69,26 @@ export default class RecipesController {
         };
     }
 
+    async likeRecipe(_id) {
+        try {
+            let recipeData = store.State.recipes.find(r => r._id == _id)
+            await recipesService.likeRecipe(recipeData)
+            _drawActiveRecipe();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteRecipe(_id) {
+        try {
+            let recipeData = store.State.recipes.find(r => r._id == _id)
+            await recipesService.deleteRecipe(recipeData)
+            _draw()
+        } catch (error) {
+
+        }
+    }
+
     async editRecipe(_id) {
 
         let recipe = store.State.recipes.find(r => r._id == _id);
@@ -83,7 +112,7 @@ export default class RecipesController {
             // @ts-ignore
             recipeData._id = form._id.value;
             await recipesService.editRecipe(recipeData)
-            _drawActiveRecipe()
+            _drawActiveRecipe();
         } catch (error) {
             console.log(error)
         }

@@ -3,8 +3,9 @@ import { BadRequest } from "../utils/Errors";
 import Recipe from "../models/Recipe";
 
 class RecipesService {
-    async getAll(query = {}) {
-        let recipes = await dbContext.Recipe.find(query);
+
+    async getAll(query) {
+        let recipes = await dbContext.Recipe.find({ ...query, closed: false });
         return recipes;
     }
     async getById(id) {
@@ -19,7 +20,10 @@ class RecipesService {
     }
     async editRecipe(_id, editedRecipe) {
         let recipe = await dbContext.Recipe.findById(_id)
-
+        // @ts-ignore
+        if (editedRecipe.creatorId != recipe.creatorId) {
+            throw new BadRequest("Cannot Edit")
+        }
         return await dbContext.Recipe.findByIdAndUpdate(_id, editedRecipe, {
             new: true
         }

@@ -5,6 +5,23 @@ import { resource } from "../resource.js";
 
 //const _SANDBOX_URL = "https://recipebook-api.com/api/recipes";
 class RecipesService {
+
+    async getRecipesByCreatorId(creatorId) {
+        let selectRecipes = await store.State.recipes.find(r => r.creatorId == creatorId)
+        store.State.recipes = selectRecipes;
+        return selectRecipes
+
+    }
+
+    async deleteRecipe(recipeData) {
+        recipeData.closed = true
+        await this.editRecipe(recipeData)
+    }
+
+    async likeRecipe(recipeData) {
+        recipeData.like++
+        await this.editRecipe(recipeData)
+    }
     async getRecipes() {
         let recipes = await resource.get("api/recipes");
         recipes = recipes.map(r => new Recipe(r));

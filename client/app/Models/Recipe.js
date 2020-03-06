@@ -44,17 +44,12 @@ export default class Recipe {
                 <p class="card-text m-3">Ingredients: ${this.ingredients}</p>
                 <p class="card-text m-3">Directions: ${this.directions}</p>
                 <p class="card-text m-3">Submitted By: <img src="${this.creatorImage}" class="img-fluid icon-sizing">  - ${this.createdBy}</p>
-                <div>
-                <img src="assets/images/black-heart.png" class="icon-sizing img-fluid img-pointer" alt="..." onclick="app.recipesController.addToFavortites('${this._id}')"> 
-                <button class="btn btn-info btn-warning img-pointer ml-2 mb-2" onclick="app.recipesController.editRecipe('${this._id}')"> 
-                Update Recipe</button>
-                <button class="btn btn-info btn-danger img-pointer ml-2 mb-2" onclick="app.recipesController.deleteRecipe('${this._id}')"> 
-                Delete Recipe</button>
-                <button class="btn btn-info btn-primary img-pointer ml-2 mb-2" onclick="app.commentsController.addComment('${this._id}')"> 
-                Add Comment</button>
-                <h3><i class="far fa-thumbs-up icon-sizing"></i></h3>
-                <h3><i class="far fa-trash-alt"></i></h3>
-                <h3><i class="fas fa-edit"></i></h3>
+                <div class="row">
+                <img src="assets/images/black-heart.png" class="icon-sizing img-fluid img-pointer ml-3" alt="..." onclick="app.recipesController.addToFavortites('${this._id}')"> 
+                <h3><i class="fas fa-edit img-pointer ml-3" onclick="app.recipesController.editRecipe('${this._id}')"></i></h3>
+                <h3><i class="far fa-trash-alt img-pointer ml-3" onclick="app.recipesController.deleteRecipe('${this._id}')"></i></h3>
+                <h3><i class="fas fa-comment-dots img-pointer ml-3" onclick="app.commentsController.addComment('${this._id}')"></i></h3>
+                <h3><i class="far fa-thumbs-up img-pointer ml-3" onclick="app.recipesController.likeRecipe('${this._id}')"> ${this.like}</i></h3>
                 </div>
              </div>
       </div>
