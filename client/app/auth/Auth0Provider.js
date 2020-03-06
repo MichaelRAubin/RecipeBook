@@ -142,7 +142,7 @@ export class Auth0Provider {
 
   static async AUTHENTICATED() {
     try {
-      this.isAuthenticated = true
+      this.isAuthenticated = true;
       this.user = await this.auth0Client.getUser();
       await this.getUserData();
       this.authListeners.forEach(cb => {

@@ -38,7 +38,7 @@ export default class RecipesController {
         let recipeData = this.getFormData(form)
         try {
             // @ts-ignore
-            await recipesService.create();
+            await recipesService.create(recipeData);
             // @ts-ignore
             form.reset();
         } catch (error) {
@@ -83,6 +83,7 @@ export default class RecipesController {
             // @ts-ignore
             recipeData._id = form._id.value;
             await recipesService.editRecipe(recipeData)
+            _drawActiveRecipe()
         } catch (error) {
             console.log(error)
         }
