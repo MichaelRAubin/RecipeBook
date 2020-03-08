@@ -33,7 +33,6 @@ export default class Recipe {
     `;
   }
 
-
   get activeRecipeTemplateLoggedIn() {
     return /* html */ `
     <div class="card text-dark recipecard-font">

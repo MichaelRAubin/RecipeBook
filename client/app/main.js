@@ -11,8 +11,8 @@ class App {
 /**
  * FIXME 
  * fix like should not be owner manditory
- * filter to show only the recipes I created
- * hide icons if not logged in
+ * filter to show only the recipes I created - completed
+ * hide icons if not logged in - completed
  */
 
 
