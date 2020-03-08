@@ -3,13 +3,13 @@ import Recipe from "../Models/Recipe.js";
 import { resource } from "../resource.js";
 
 
-//const _SANDBOX_URL = "https://recipebook-api.com/api/recipes";
+
 class RecipesService {
 
     async getRecipesByCreatorId(creatorId) {
-        let selectRecipes = await store.State.recipes.find(r => r.creatorId == creatorId)
-        store.State.recipes = selectRecipes;
-        return selectRecipes
+        let myRecipes = await store.State.recipes.filter(r => r.creatorId == creatorId)
+        store.State.myRecipes = myRecipes.map(recipeData => new Recipe(recipeData));
+        console.log("My Recipes", myRecipes)
 
     }
 
@@ -20,7 +20,14 @@ class RecipesService {
 
     async likeRecipe(recipeData) {
         recipeData.like++
-        await this.editRecipe(recipeData)
+        let recipe = await resource.put("api/recipes/" + recipeData._id, recipeData);
+        recipe = new Recipe(recipe);
+        let i = store.State.recipes.findIndex(r => r._id == recipe._id)
+        if (i != -1) {
+            store.State.recipes.splice(i, 1, recipe)
+            store.commit("recipes", store.State.recipes);
+        }
+
     }
     async getRecipes() {
         let recipes = await resource.get("api/recipes");
@@ -40,7 +47,7 @@ class RecipesService {
         store.commit("recipes", store.State.recipes);
     }
 
-    async editRecipe(recipeData) { //TODO getting not defined here
+    async editRecipe(recipeData) {
         let recipe = await resource.put("api/recipes/" + recipeData._id, recipeData);
         recipe = new Recipe(recipe);
         let i = store.State.recipes.findIndex(r => r._id == recipe._id)

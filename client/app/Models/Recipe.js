@@ -33,8 +33,8 @@ export default class Recipe {
     `;
   }
 
-  //TODO instead of a button make it an icon that changes color
-  get activeRecipeTemplate() {
+
+  get activeRecipeTemplateLoggedIn() {
     return /* html */ `
     <div class="card text-dark recipecard-font">
             <img src="assets/images/index card.jpg" class="card-img" alt="...">
@@ -82,6 +82,24 @@ export default class Recipe {
               </form>
             </div>
     `;
+  }
+
+  get activeRecipeTemplateNotLoggedIn() {
+    return /* html */ `
+        <div class="card text-dark recipecard-font">
+                <img src="assets/images/index card.jpg" class="card-img" alt="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title mt-n3">${this.name}</h5>
+                    <p class="card-text m-3">Description: ${this.description}</p>
+                    <p class="card-text m-3">Ingredients: ${this.ingredients}</p>
+                    <p class="card-text m-3">Directions: ${this.directions}</p>
+                    <p class="card-text m-3">Submitted By: <img src="${this.creatorImage}" class="img-fluid icon-sizing">  - ${this.createdBy}</p>
+                    <div class="row">
+                    <h3><i class="far fa-thumbs-up img-pointer ml-3" onclick="app.recipesController.likeRecipe('${this._id}')"> ${this.like}</i></h3>
+                    </div>
+                </div>
+          </div>
+          `;
   }
 
 }

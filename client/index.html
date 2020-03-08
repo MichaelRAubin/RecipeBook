@@ -29,10 +29,11 @@
       <button type="button" class="btn btn-success mt-2 mb-2 ml-2" data-toggle="modal" data-target="#exampleModal">
         Add Recipe
       </button>
-      <button class="btn btn-success mt-2 mb-2 ml-2" onsubmit="app.recipesController.getRecipesByCreatorId"
+      <button class="btn btn-success mt-2 mb-2 ml-2" onclick="app.recipesController.getRecipesByCreatorId()"
         type="submit">My Recipes</button>
       <button class="btn btn-success mt-2 mb-2 ml-2" type="submit">My FAVS</button>
-      <button class="btn btn-success mt-2 mb-2 ml-2" type="submit">Show All</button>
+      <button class="btn btn-success mt-2 mb-2 ml-2" onclick="app.recipesController.getRecipes()" type="submit">Show
+        All</button>
     </div>
     <div class="row h-75">
       <div class="col 12 order-3 order-lg-1 col-lg-6 recipes-list overflow">

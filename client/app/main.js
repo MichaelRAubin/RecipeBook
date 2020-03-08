@@ -8,4 +8,12 @@ class App {
   recipesController = new RecipesController();
 }
 
+/**
+ * FIXME 
+ * fix like should not be owner manditory
+ * filter to show only the recipes I created
+ * hide icons if not logged in
+ */
+
+
 window["app"] = new App();

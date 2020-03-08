@@ -10,13 +10,15 @@ export class RecipesController extends BaseController {
         this.router = express
             .Router()
             .get("", this.getAll)
+            .put("/id:", this.likeRecipe)
+            .get("/:id", this.getById)
             // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
             .use(auth0Provider.getAuthorizedUserInfo)
-            .get("/:id", this.getById)
             .post("", this.create)
             .put("/:id", this.editRecipe)
-            .delete("/:id", this.deleteRecipe);
+            .delete("/:id", this.deleteRecipe)
     }
+
     async getAll(req, res, next) {
         try {
             let data = await recipesService.getAll();
@@ -53,6 +55,15 @@ export class RecipesController extends BaseController {
             req.body.creatorId = req.user.sub;
             let editedRecipe = await recipesService.editRecipe(req.params.id, req.body);
             res.send(editedRecipe)
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async likeRecipe(req, res, next) {
+        try {
+            let likedRecipe = await recipesService.likeRecipe(req.params.id, req.body);
+            res.send(likedRecipe)
         } catch (error) {
             next(error);
         }

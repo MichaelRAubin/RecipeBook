@@ -6,6 +6,7 @@ import Recipe from "./Models/Recipe.js";
 let _state = {
   recipes: [],
   activeRecipe: [],
+  myRecipes: [],
   comments: [],
   favorites: []
 };
@@ -16,6 +17,7 @@ let _state = {
 let _listeners = {
   recipes: [],
   activeRecipe: [],
+  myRecipes: [],
   comments: [],
   favorites: []
 };

@@ -9,13 +9,27 @@ function _draw() {
     document.getElementById("recipe-listings").innerHTML = template;
 }
 
+function _drawMyRecipes() {
+    let template = "";
+    store.State.myRecipes.forEach(recipe => (template += recipe.Template));
+    document.getElementById("recipe-listings").innerHTML = template;
+}
+
 function _drawActiveRecipe() {
     if (!store.State.activeRecipe._id) {
         document.getElementById("activeRecipe").innerHTML = "";
         return;
     }
-    document.getElementById("activeRecipe").innerHTML =
-        store.State.activeRecipe.activeRecipeTemplate;
+    else if (!Auth0Provider.userInfo.sub) {
+        document.getElementById("activeRecipe").innerHTML =
+            store.State.activeRecipe.activeRecipeTemplateNotLoggedIn;
+        return;
+    }
+    else {
+        document.getElementById("activeRecipe").innerHTML =
+            store.State.activeRecipe.activeRecipeTemplateLoggedIn;
+        return;
+    }
 }
 //Public
 export default class RecipesController {
@@ -34,8 +48,9 @@ export default class RecipesController {
 
     async getRecipesByCreatorId() {
         try {
-            await recipesService.getRecipesByCreatorId()
-            _draw()
+            let creatorId = Auth0Provider.userInfo.sub;
+            await recipesService.getRecipesByCreatorId(creatorId)
+            _drawMyRecipes()
         } catch (error) {
             console.log(error)
         }
@@ -85,7 +100,7 @@ export default class RecipesController {
             await recipesService.deleteRecipe(recipeData)
             _draw()
         } catch (error) {
-
+            console.log(error)
         }
     }
 

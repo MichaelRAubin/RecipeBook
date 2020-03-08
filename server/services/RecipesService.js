@@ -4,6 +4,16 @@ import Recipe from "../models/Recipe";
 
 class RecipesService {
 
+    async likeRecipe(id, likedRecipe) {
+        let recipe = await dbContext.Recipe.findById(id)
+        if (!recipe) {
+            throw new BadRequest("Invalid Id");
+        }
+        return await dbContext.Recipe.findByIdAndUpdate(id, likedRecipe, {
+            new: true
+        })
+    }
+
     async getAll(query) {
         let recipes = await dbContext.Recipe.find({ ...query, closed: false });
         return recipes;
