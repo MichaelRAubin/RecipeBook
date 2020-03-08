@@ -28,6 +28,15 @@ export class RecipesController extends BaseController {
         }
     }
 
+    async likeRecipe(req, res, next) {
+        try {
+            let likedRecipe = await recipesService.likeRecipe(req.params.id, req.body);
+            res.send(likedRecipe)
+        } catch (error) {
+            next(error);
+        }
+    }
+
     async getById(req, res, next) {
         try {
             let data = await recipesService.getById(req.params.id);
@@ -60,14 +69,6 @@ export class RecipesController extends BaseController {
         }
     }
 
-    async likeRecipe(req, res, next) {
-        try {
-            let likedRecipe = await recipesService.likeRecipe(req.params.id, req.body);
-            res.send(likedRecipe)
-        } catch (error) {
-            next(error);
-        }
-    }
 
     async deleteRecipe(req, res, next) {
         try {

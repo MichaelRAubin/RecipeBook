@@ -1,6 +1,7 @@
 import store from "../store.js";
 import Recipe from "../Models/Recipe.js";
 import { resource } from "../resource.js";
+import { Auth0Provider } from "../auth/Auth0Provider.js";
 
 
 
@@ -19,10 +20,12 @@ class RecipesService {
     }
 
     async likeRecipe(recipeData) {
+        //Auth0Provider.userInfo.sub = ""
         recipeData.like++
         let recipe = await resource.put("api/recipes/" + recipeData._id, recipeData);
         recipe = new Recipe(recipe);
         let i = store.State.recipes.findIndex(r => r._id == recipe._id)
+
         if (i != -1) {
             store.State.recipes.splice(i, 1, recipe)
             store.commit("recipes", store.State.recipes);
