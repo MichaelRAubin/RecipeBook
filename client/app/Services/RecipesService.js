@@ -7,6 +7,18 @@ import { Auth0Provider } from "../auth/Auth0Provider.js";
 
 class RecipesService {
 
+    async likeRecipe(recipeData) {
+        recipeData.like++
+        let recipe = await resource.put("api/recipes/" + recipeData._id, recipeData);
+        recipe = new Recipe(recipe);
+        let i = store.State.recipes.findIndex(r => r._id == recipe._id)
+        if (i != -1) {
+            store.State.recipes.splice(i, 1, recipe)
+            store.commit("recipes", store.State.recipes);
+        }
+
+    }
+
     async getRecipesByCreatorId(creatorId) {
         let myRecipes = await store.State.recipes.filter(r => r.creatorId == creatorId)
         store.State.myRecipes = myRecipes.map(recipeData => new Recipe(recipeData));
@@ -19,19 +31,7 @@ class RecipesService {
         await this.editRecipe(recipeData)
     }
 
-    async likeRecipe(recipeData) {
-        //Auth0Provider.userInfo.sub = ""
-        recipeData.like++
-        let recipe = await resource.put("api/recipes/" + recipeData._id, recipeData);
-        recipe = new Recipe(recipe);
-        let i = store.State.recipes.findIndex(r => r._id == recipe._id)
 
-        if (i != -1) {
-            store.State.recipes.splice(i, 1, recipe)
-            store.commit("recipes", store.State.recipes);
-        }
-
-    }
     async getRecipes() {
         let recipes = await resource.get("api/recipes");
         recipes = recipes.map(r => new Recipe(r));

@@ -10,7 +10,7 @@ class App {
 
 /**
  * FIXME 
- * fix like should not be owner manditory
+ * fix like should not be owner manditory - completed
  * filter to show only the recipes I created - completed
  * hide icons if not logged in - completed
  */

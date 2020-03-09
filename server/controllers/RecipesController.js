@@ -9,8 +9,8 @@ export class RecipesController extends BaseController {
         super("api/recipes");
         this.router = express
             .Router()
+            .put("/:id", this.likeRecipe)
             .get("", this.getAll)
-            .put("/id:", this.likeRecipe)
             .get("/:id", this.getById)
             // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
             .use(auth0Provider.getAuthorizedUserInfo)
@@ -35,6 +35,7 @@ export class RecipesController extends BaseController {
         } catch (error) {
             next(error);
         }
+
     }
 
     async getById(req, res, next) {

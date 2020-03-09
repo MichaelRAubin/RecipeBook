@@ -38,6 +38,17 @@ export default class RecipesController {
         store.subscribe("recipes", _draw);
     }
 
+    async likeRecipe(_id) {
+        try {
+            //Auth0Provider.userInfo.sub = "";
+            let recipeData = store.State.recipes.find(r => r._id == _id)
+            await recipesService.likeRecipe(recipeData)
+            _drawActiveRecipe();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getRecipes() {
         try {
             await recipesService.getRecipes();
@@ -45,6 +56,7 @@ export default class RecipesController {
             console.log(error);
         }
     }
+
 
     async getRecipesByCreatorId() {
         try {
@@ -84,16 +96,6 @@ export default class RecipesController {
         };
     }
 
-    async likeRecipe(_id) {
-        try {
-            //Auth0Provider.userInfo.sub = "";
-            let recipeData = store.State.recipes.find(r => r._id == _id)
-            await recipesService.likeRecipe(recipeData)
-            _drawActiveRecipe();
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     async deleteRecipe(_id) {
         try {
