@@ -31,7 +31,6 @@ class RecipesService {
         await this.editRecipe(recipeData)
     }
 
-
     async getRecipes() {
         let recipes = await resource.get("api/recipes");
         recipes = recipes.map(r => new Recipe(r));

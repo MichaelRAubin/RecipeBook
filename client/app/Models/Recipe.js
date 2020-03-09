@@ -13,8 +13,6 @@ export default class Recipe {
     this.imgUrl = data.imgUrl;
   }
 
-  //TODO Add HTML Templates
-
   get Template() {
     return /* html */ `
       <div class="card shadow mb-3" style="max-width: 350px;">

@@ -70,7 +70,6 @@ export class RecipesController extends BaseController {
         }
     }
 
-
     async deleteRecipe(req, res, next) {
         try {
             req.body.creatorId = req.user.sub;

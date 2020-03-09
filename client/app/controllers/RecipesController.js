@@ -57,7 +57,6 @@ export default class RecipesController {
         }
     }
 
-
     async getRecipesByCreatorId() {
         try {
             let creatorId = Auth0Provider.userInfo.sub;
@@ -81,6 +80,7 @@ export default class RecipesController {
             console.log(error)
         }
     }
+
     getFormData(form) {
         return {
             // @ts-ignore
@@ -95,7 +95,6 @@ export default class RecipesController {
             imgUrl: form.imgUrl.value
         };
     }
-
 
     async deleteRecipe(_id) {
         try {
@@ -113,6 +112,7 @@ export default class RecipesController {
         let form = document.getElementById("update-form");
         this.setFormFields(form, recipe)
     }
+
     setFormFields(form, recipe) {
         form.name.value = recipe.name;
         form.description.value = recipe.description;
